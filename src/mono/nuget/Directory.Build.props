@@ -15,7 +15,9 @@
     
     <!-- Central place to set the versions of all nuget packages produced in the repo -->
     <PackageVersion Condition="'$(ProductVersion)' == ''">6.0.0</PackageVersion>
-    <StableVersion Condition="'$(StabilizePackageVersion)' == 'true' and '$(StableVersion)' == ''">$(PackageVersion)</StableVersion>
+    <StableVersion Condition="'$(StabilizePackageVersion)' == 'true' and '$(StableVersion)' == ''">6.0.0</StableVersion>
+    <StableVersion Condition="($(MSBuildProjectName.Contains('Private')) or $(MSBuildProjectName.Contains('Transport'))) and '$(MSBuildProjectExtension)' == '.pkgproj'"></StableVersion>
+    <VersionSuffix Condition="($(MSBuildProjectName.Contains('Private')) or $(MSBuildProjectName.Contains('Transport'))) and '$(MSBuildProjectExtension)' == '.pkgproj'">$(_PreReleaseLabel)$(_BuildNumberLabels)</VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>
